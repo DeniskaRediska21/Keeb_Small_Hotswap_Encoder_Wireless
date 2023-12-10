@@ -14,5 +14,5 @@ Gimmics:
 # Gallery
 
 
-| ![PCB](Media/left_board.png =250x250) | ![PCB](Media/right.png =250x250) |
+| ![PCB](Media/left_board.png) | ![PCB](Media/right.png) |
 |------------------------------|-------------------------|
