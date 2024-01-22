@@ -5,6 +5,8 @@ from storage import getmount
 
 from kmk.kmk_keyboard import KMKKeyboard as _KMKKeyboard
 from kmk.scanners.keypad import KeysScanner
+from kmk.scanners.encoder import RotaryioEncoder
+
 
 # VBus pin config
 VBUS_PIN = board.VBUS_SENSE  # RPi Pico
@@ -27,7 +29,7 @@ board.GP1,
 board.GP7,board.GP9,board.GP11,board.GP19,board.GP16,
 board.GP6,board.GP8,board.GP12,board.GP18,board.GP17,
 board.GP5,board.GP10,board.GP13,board.GP21,board.GP22,
-board.GP27,board.GP20,board.GP26
+board.GP27,board.GP20,board.GP26,board.GP28
 ]
 
 # GPIO to key mapping, Left
@@ -36,28 +38,29 @@ board.GP22,
 board.GP12,board.GP13,board.GP18,board.GP19,board.GP26,
 board.GP5,board.GP10,board.GP17,board.GP20,board.GP27,
 board.GP3,board.GP11,board.GP16,board.GP21,board.GP28,
-board.GP0,board.GP4,board.GP1
+board.GP0,board.GP4,board.GP1,board.GP9
 ]
 
 
 class KMKKeyboard(_KMKKeyboard):
     def __init__(self):
         # create and register the scanner
-        self.matrix = KeysScanner(
+        self.matrix = [KeysScanner(
             pins = _KEY_CFG_RIGHT if isRight == True else _KEY_CFG_LEFT
-        )
+        ),
+        RotaryioEncoder(
+            pin_a= board.GP7 if isRight == True else board.GP4,
+            pin_b=board.GP8 if isRight == True else board.GP3,)
+        ]
 
-    # flake8: noqa
-    # fmt: off
-#    coord_mapping = [
-#0,1,2,3,4,17,18,19,20,21,5,6,7,8,9,22,23,24,25,26,10,11,12,13,
-#14,27,28,29,30,31,15,16,32,33]
+
 
     coord_mapping = [
-    			 0,   19,
-         1,  2,  3,  4,  5,   20, 21, 22, 23, 24,
-         6,  7,  8,  9, 10,   25, 26, 27, 28, 29,
-        11, 12, 13, 14, 15,   30, 31, 32, 33, 34,
-                16, 17, 18,   35, 36, 37,
+    			 0,   22,
+         1,  2,  3,  4,  5,   23, 24, 25, 26, 27,
+         6,  7,  8,  9, 10,   28, 29, 30, 31, 32,
+        11, 12, 13, 14, 15,   33, 34, 35, 36, 37,
+                16, 17, 18,   38, 39, 40, 
+                19, 21, 20,   43, 42, 41
     ]
 

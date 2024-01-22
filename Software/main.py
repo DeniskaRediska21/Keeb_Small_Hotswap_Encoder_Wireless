@@ -26,6 +26,7 @@ from kmk.extensions.media_keys import MediaKeys
 
 from kmk.handlers.sequences import simple_key_sequence
 
+from kmk.modules.encoder import EncoderHandler
 
 
 
@@ -38,6 +39,7 @@ keyboard.tap_time = 100
 
 layers = Layers()
 
+encoder_handler = EncoderHandler()
 
 
 split_side = SplitSide.RIGHT if isRight else SplitSide.LEFT
@@ -75,7 +77,7 @@ split = Split(
 
 )
 
-keyboard.modules = [layers, split, MouseKeys(),OneShot()]
+keyboard.modules = [layers, split, MouseKeys(),OneShot(), encoder_handler]
 
 
 
@@ -95,7 +97,7 @@ SEL_LINE = simple_key_sequence(
 
 )
 
-
+ 
 
 
 
@@ -104,7 +106,8 @@ LOWER =KC.LT(1,KC.OS(KC.MO(1),tap_time=1000))
 
 RAISE =KC.LT(2,KC.OS(KC.MO(2),tap_time=1000))
 
-
+Zoom_in = KC.LCTRL(KC.PPLS)
+Zoom_out = KC.LCTRL(KC.MINUS)
 
 OS_LCTL = KC.OS(KC.LCTL, tap_time=None)
 keyboard.keymap = [
@@ -118,7 +121,9 @@ keyboard.keymap = [
 
         KC.Z,    KC.X,    KC.C,    KC.V,    KC.COMM,                        KC.DOT,    KC.N, KC.M,  KC.B, KC.ESC,\
 
-                          KC.LSFT,   LOWER,KC.SPACE,              		 KC.ENT,     RAISE,   KC.LCTL
+                          KC.LSFT,   LOWER,KC.SPACE,              		 KC.ENT,     RAISE,   KC.LCTL,\
+                          
+                          KC.N0, Zoom_in, Zoom_out, 				KC.MW_UP, KC.MW_DOWN, KC.N0, 
                           
 
     ],
@@ -132,7 +137,9 @@ keyboard.keymap = [
 
         KC.LCTL(KC.Z),  KC.LCTL(KC.X),   KC.LCTL(KC.INSERT),     KC.LSFT(KC.INSERT),   KC.LCTL(KC.C),                   KC.GRAVE,   KC.LABK,   KC.DOWN,   KC.RABK,  KC.SLSH,\
  
-                                         KC.LSFT,                KC.RALT,   KC.SPACE,                                      KC.ENT,      KC.TAB,    KC.LCTL
+                                         KC.LSFT,                KC.RALT,   KC.SPACE,                                      KC.ENT,      KC.TAB,    KC.LCTL,\
+                                         
+                          KC.N0, Zoom_in, Zoom_out, 				KC.MW_UP, KC.MW_DOWN, KC.N0, 
 
     ],
 
@@ -145,11 +152,29 @@ keyboard.keymap = [
 
         KC.F12,    KC.F11,  KC.F10, KC.DQUO,  KC.COLON,                     KC.MINS, KC.PLUS, KC.LBRC, KC.RBRC, KC.BSLS,\
 
-                                         KC.LSFT,                KC.RALT,   KC.SPACE,                                      KC.ENT,      KC.TAB,    KC.LCTL
+                                         KC.LSFT,                KC.RALT,   KC.SPACE,                                      KC.ENT,      KC.TAB,    KC.LCTL,\
+                                         
+                          KC.N0, Zoom_in, Zoom_out, 				KC.MW_UP, KC.MW_DOWN, KC.N0, 
 
     ]
 
 ]
+
+
+#split_side == SplitSide.LEFT
+#encoder_handler.pins = (
+    # regular direction encoder and a button
+#    (board.GP4, board.GP3, board.GP28,) if split_side == SplitSide.LEFT else (board.GP7, board.GP8, board.GP9,), # encoder #1 
+#    )
+#Zoom_in = KC.LCTRL(KC.EQUAL)
+#Zoom_out = KC.LCTRL(KC.MINUS)
+#encoder_handler.map = [((Zoom_out, Zoom_in, KC.NO),) if split_side == SplitSide.LEFT else (( KC.MW_UP, KC.MW_DOWN, KC.N0),)]
+
+
+
+
+
+ 
 
 
 
