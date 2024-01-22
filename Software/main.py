@@ -116,7 +116,7 @@ keyboard.keymap = [
 
         KC.A,    KC.S,    KC.D,    KC.F,    KC.G,                        KC.H,    KC.J,    KC.K,    KC.L, KC.BSPC,\
 
-        KC.Z,    KC.X,    KC.C,    KC.V,    KC.COMM,                        KC.DOT,    KC.M, KC.N,  KC.B, KC.ESC,\
+        KC.Z,    KC.X,    KC.C,    KC.V,    KC.COMM,                        KC.DOT,    KC.N, KC.M,  KC.B, KC.ESC,\
 
                           KC.LSFT,   LOWER,KC.SPACE,              		 KC.ENT,     RAISE,   KC.LCTL
                           
