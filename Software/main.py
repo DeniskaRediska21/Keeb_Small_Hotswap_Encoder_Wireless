@@ -28,13 +28,16 @@ from kmk.handlers.sequences import simple_key_sequence
 
 from kmk.modules.encoder import EncoderHandler
 
+from kmk.modules.tapdance import TapDance
+
+
 
 
 
 keyboard = KMKKeyboard()
 
 keyboard.tap_time = 100
-
+keyboard.extensions.append(MediaKeys())
 
 
 layers = Layers()
@@ -77,7 +80,7 @@ split = Split(
 
 )
 
-keyboard.modules = [layers, split, MouseKeys(),OneShot(), encoder_handler]
+keyboard.modules = [layers, split, MouseKeys(),OneShot(), encoder_handler, TapDance()]
 
 
 
@@ -99,8 +102,8 @@ SEL_LINE = simple_key_sequence(
 
  
 
-
-
+G_SHIFT = KC.TD(KC.G, KC.LSHIFT, tap_time=200)
+H_SHIFT = KC.TD(KC.H, KC.RSHIFT, tap_time=200)
 
 LOWER =KC.LT(1,KC.OS(KC.MO(1),tap_time=1000))
 
@@ -117,29 +120,29 @@ keyboard.keymap = [
 
         KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,                        KC.Y,    KC.U,    KC.I,    KC.O,   KC.P,\
 
-        KC.A,    KC.S,    KC.D,    KC.F,    KC.G,                        KC.H,    KC.J,    KC.K,    KC.L, KC.BSPC,\
+        KC.A,    KC.S,    KC.D,    KC.F,    G_SHIFT,                        H_SHIFT,    KC.J,    KC.K,    KC.L, KC.BSPC,\
 
         KC.Z,    KC.X,    KC.C,    KC.V,    KC.COMM,                        KC.DOT,    KC.N, KC.M,  KC.B, KC.ESC,\
 
                           KC.LSFT,   LOWER,KC.SPACE,              		 KC.ENT,     RAISE,   KC.LCTL,\
                           
-                          KC.N0, Zoom_in, Zoom_out, 				KC.MW_UP, KC.MW_DOWN, KC.N0, 
+                          KC.NO, Zoom_in, Zoom_out, 				KC.MW_UP, KC.MW_DOWN, KC.NO, 
                           
 
     ],
 
-    [  #LOWER
+    [  #LOWER	
                                            					       KC.RALT, 			KC.TAB,\
 
         KC.N1,          KC.N2,           KC.N3,           	 KC.N4,                KC.N5,                           KC.N6,      KC.N7,     KC.N8,     KC.N9,    KC.N0,\
 
-        KC.LCTL(KC.A),  KC.LCTL(KC.S),   KC.LCTL(KC.RALT(KC.T)), KC.QUES,              KC.LCTL(KC.V),                   KC.N0,      KC.LEFT,   KC.UP,     KC.RIGHT, KC.DEL,\
+        KC.LCTL(KC.A),  KC.LCTL(KC.S),   KC.LCTL(KC.RALT(KC.T)), KC.QUES,              KC.LCTL(KC.V),                   KC.N0,      KC.LEFT,   KC.DOWN,     KC.UP, KC.RIGHT,\
 
-        KC.LCTL(KC.Z),  KC.LCTL(KC.X),   KC.LCTL(KC.INSERT),     KC.LSFT(KC.INSERT),   KC.LCTL(KC.C),                   KC.GRAVE,   KC.LABK,   KC.DOWN,   KC.RABK,  KC.SLSH,\
+        KC.LCTL(KC.Z),  KC.LCTL(KC.X),   KC.LCTL(KC.INSERT),     KC.LSFT(KC.INSERT),   KC.LCTL(KC.C),                   KC.GRAVE,   KC.LABK,   KC.PIPE,   KC.RABK,  KC.SLSH,\
  
-                                         KC.LSFT,                KC.RALT,   KC.SPACE,                                      KC.ENT,      KC.TAB,    KC.LCTL,\
+                                         KC.LSFT,                KC.NO,   KC.SPACE,                                      KC.ENT,      KC.NO,    KC.LCTL,\
                                          
-                          KC.N0, Zoom_in, Zoom_out, 				KC.MW_UP, KC.MW_DOWN, KC.N0, 
+                          KC.NO, Zoom_in, Zoom_out, 				KC.VOLU, KC.VOLD, KC.NO, 
 
     ],
 
@@ -148,13 +151,13 @@ keyboard.keymap = [
 
         KC.EXLM,   KC.AT, KC.HASH,  KC.DLR,   KC.PERC,                      KC.CIRC, KC.AMPR, KC.ASTR, KC.LPRN, KC.RPRN,\
 
-        KC.F2,     KC.F5,   KC.F9,  KC.QUOT,  KC.SCLN,                      KC.UNDS,  KC.EQL, KC.LCBR, KC.RCBR, KC.PIPE,\
+        KC.F2,     KC.F5,   KC.F9,  KC.QUOT,  KC.SCLN,                      KC.UNDS,  KC.EQL, KC.LCBR, KC.RCBR, KC.DEL,\
 
         KC.F12,    KC.F11,  KC.F10, KC.DQUO,  KC.COLON,                     KC.MINS, KC.PLUS, KC.LBRC, KC.RBRC, KC.BSLS,\
 
-                                         KC.LSFT,                KC.RALT,   KC.SPACE,                                      KC.ENT,      KC.TAB,    KC.LCTL,\
+                          KC.LSFT,   KC.NO,   KC.SPACE,                     KC.ENT,      KC.NO,    KC.LCTL,\
                                          
-                          KC.N0, Zoom_in, Zoom_out, 				KC.MW_UP, KC.MW_DOWN, KC.N0, 
+                          KC.NO, Zoom_in, Zoom_out, 				KC.MW_UP, KC.MW_DOWN, KC.NO,
 
     ]
 
