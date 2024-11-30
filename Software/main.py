@@ -1,37 +1,18 @@
 import board
-
 import digitalio 
-
-
 from kmk.modules.oneshot import OneShot
-
-
-
-
 from kb import KMKKeyboard, isRight
-
 from storage import getmount
-
-
-
 from kmk.keys import KC
-
 from kmk.modules.layers import Layers
-
 from kmk.modules.split import Split, SplitSide, SplitType
-
 from kmk.modules.mouse_keys import MouseKeys
-
 from kmk.extensions.media_keys import MediaKeys
-
 from kmk.handlers.sequences import simple_key_sequence
-
 from kmk.modules.encoder import EncoderHandler
-
+from kmk.modules.holdtap import HoldTap
 from kmk.modules.tapdance import TapDance
-
-
-
+from kmk.modules.capsword import CapsWord
 
 
 keyboard = KMKKeyboard()
@@ -62,29 +43,17 @@ data_pin = board.GP14 if split_side == SplitSide.LEFT else board.GP14
         
 
 split = Split(
-
 #     split_side=split_side,
-
     split_type=SplitType.UART,
 #     split_type=SplitType.BLE,
-
     split_flip=False,
-
     data_pin=data_pin,
-
 #     data_pin2=data_pin2,
-    
     uart_flip = True,
-    
     use_pio = True,
-
 )
 
-keyboard.modules = [layers, split, MouseKeys(),OneShot(), encoder_handler, TapDance()]
-
-
-
-
+keyboard.modules = [layers, split, MouseKeys(),OneShot(), encoder_handler, HoldTap(), TapDance(), CapsWord()]
 
 # Select line 
 
@@ -102,8 +71,9 @@ SEL_LINE = simple_key_sequence(
 
  
 
-G_SHIFT = KC.TD(KC.G, KC.LSHIFT, tap_time=200)
-H_SHIFT = KC.TD(KC.H, KC.RSHIFT, tap_time=200)
+G_SHIFT_CAPS = KC.TD(KC.HT(KC.G, KC.LSHIFT, tap_time=200, prefer_hold=False), KC.CW, tap_time=80)
+G_SHIFT = KC.HT(KC.G, KC.LSHIFT, tap_time=200, prefer_hold=False)
+H_SHIFT = KC.HT(KC.H, KC.RSHIFT, tap_time=200, prefer_hold=False)
 
 LOWER =KC.LT(1,KC.OS(KC.MO(1),tap_time=1000))
 
@@ -120,7 +90,7 @@ keyboard.keymap = [
 
         KC.Q,    KC.W,    KC.E,    KC.R,    KC.T,                        KC.Y,    KC.U,    KC.I,    KC.O,   KC.P,\
 
-        KC.A,    KC.S,    KC.D,    KC.F,    G_SHIFT,                        H_SHIFT,    KC.J,    KC.K,    KC.L, KC.BSPC,\
+        KC.A,    KC.S,    KC.D,    KC.F,    G_SHIFT_CAPS,                        H_SHIFT,    KC.J,    KC.K,    KC.L, KC.BSPC,\
 
         KC.Z,    KC.X,    KC.C,    KC.V,    KC.COMM,                        KC.DOT,    KC.N, KC.M,  KC.B, KC.ESC,\
 
